@@ -1,0 +1,39 @@
+{
+  "name": "tag.js",
+  "version": "1.0.0",
+  "description": "JS Tag Manager",
+  "scripts": {
+    "test": "jest --coverage --coverageDirectory=./coverage",
+    "build": "node build.js && uglifyjs dist/tag.js --mangle --webkit --compress \"drop_console=true,passes=5\" --comments \"/MIT License/\" -o dist/tag.min.js",
+    "jsdoc": "jsdoc -c jsdoc.conf.json",
+    "eslint": "eslint --max-warnings=0 src/*.js tests/*.js",
+    "eslint:fix": "eslint --fix src/*.js tests/*.js"
+  },
+  "author": "Rancoud",
+  "license": "MIT",
+  "homepage": "https://github.com/rancoud/tag.js",
+  "devDependencies": {
+    "@babel/core": "^7.22.20",
+    "@types/jest": "^29.5.5",
+    "eslint": "^8.49.0",
+    "eslint-plugin-jest": "^27.4.0",
+    "eslint-plugin-jsdoc": "^46.8.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdoc": "^4.0.2",
+    "uglify-js": "^3.17.4"
+  },
+  "engines": {
+    "npm": ">=9.8.1",
+    "node": ">=20.6.1"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testEnvironmentOptions": {
+      "resources": "usable"
+    },
+    "coveragePathIgnorePatterns": [
+      "./tests/screen-reader-speak.js"
+    ]
+  }
+}
