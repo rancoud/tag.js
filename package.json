@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "JS Tag Manager",
   "scripts": {
-    "test": "jest --coverage --coverageDirectory=./coverage",
-    "build": "node build.js && uglifyjs dist/tag.js --mangle --webkit --compress \"drop_console=true,passes=5\" --comments \"/MIT License/\" -o dist/tag.min.js",
+    "test": "jest --coverage --coverageDirectory=./coverage -- tests/tag.test.js",
+    "build": "node build.js && uglifyjs dist/tag.js --mangle --webkit --compress \"drop_console=true,passes=5\" --comments \"/MIT License/\" -o dist/tag.min.js && jest",
     "jsdoc": "jsdoc -c jsdoc.conf.json",
     "eslint": "eslint --max-warnings=0 src/*.js tests/*.js",
     "eslint:fix": "eslint --fix src/*.js tests/*.js"
