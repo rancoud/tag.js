@@ -4,11 +4,11 @@
  *
  * @param {string} attributeName - attribute name
  * @param {string} elementID     - id
- * @returns {Error|HTMLElement}
+ * @returns {(TypeError|Error|HTMLElement)}
  */
 function getHTMLElement(attributeName, elementID) {
-    /** @type HTMLElement */
-    var htmlElementObject = null;
+    /** @type {(HTMLElement|null)} */
+    var htmlElementObject;
 
     if (typeof elementID !== "string") {
         return new TypeError("Invalid attribute " + attributeName + ", expect string, get " + typeof elementID);
@@ -28,22 +28,18 @@ function getHTMLElement(attributeName, elementID) {
  * @class Tag
  * @param {HTMLElement} rootDom                     - rootDom
  * @param {Function}    [screenReaderSpeakFunction] - screenReaderSpeak Function
- * @returns {Error|undefined}
+ * @returns {(Error|undefined)}
  */
 function Tag(rootDom, screenReaderSpeakFunction) {
-    /** @type number */
+    /** @type {number} */
     var idx = 0;
-
-    /** @type number */
-    var len = 0;
-
-    /** @type HTMLElement */
-    var htmlElementObject = null;
-
-    /** @type string */
-    var attributeValue = "";
-
-    /** @type Options */
+    /** @type {number} */
+    var len;
+    /** @type {(TypeError|Error|HTMLElement)} */
+    var htmlElementObject;
+    /** @type {(string|null)} */
+    var attributeValue;
+    /** @type {Options} */
     var options = {
         inputObj: null,
         textareaObj: null,
@@ -58,14 +54,12 @@ function Tag(rootDom, screenReaderSpeakFunction) {
         events: null,
         speakFn: null
     };
-
     var mandatoryHTMLElement = [
         {name: "data-tag-form-input-id", optionName: "inputObj"},
         {name: "data-tag-form-textarea-id", optionName: "textareaObj"},
         {name: "data-tag-list-id", optionName: "listObj"},
         {name: "data-tag-new-id", optionName: "newObj"}
     ];
-
     var arias = [
         {name: "data-tag-aria-label", defaultValue: "Remove %s from the list", optionName: "ariaLabel"},
         {name: "data-tag-srspeak-add", defaultValue: "%s added", optionName: "srSpeakAdd"},
@@ -119,7 +113,7 @@ function Tag(rootDom, screenReaderSpeakFunction) {
  * @returns {undefined}
  */
 function TagManager(rootDom, options) {
-    /** @type Options */
+    /** @type {Options} */
     this.options = options;
 
     this.options.events = {
@@ -132,7 +126,9 @@ function TagManager(rootDom, options) {
 }
 
 TagManager.prototype.tryToAddTagOnKeypress = function tryToAddTagOnKeypress(event) {
+    /** @type {number} */
     var idxKeys = 0;
+    /** @type {number} */
     var maxKeys = this.options.keys.length;
 
     for (; idxKeys < maxKeys; ++idxKeys) {
@@ -149,8 +145,8 @@ TagManager.prototype.tryToAddTagOnKeypress = function tryToAddTagOnKeypress(even
 };
 
 TagManager.prototype.tryToDeleteTag = function tryToDeleteTag(event) {
-    /** @type HTMLElement */
-    var btn = null;
+    /** @type {(HTMLElement|null)} */
+    var btn;
 
     event.preventDefault();
 
@@ -163,17 +159,14 @@ TagManager.prototype.tryToDeleteTag = function tryToDeleteTag(event) {
 };
 
 TagManager.prototype.add = function add(text) {
-    /** @type Text */
-    var textNode = null;
-
-    /** @type HTMLLIElement */
-    var li = null;
-
-    /** @type HTMLSpanElement */
-    var span = null;
-
-    /** @type HTMLButtonElement */
-    var button = null;
+    /** @type {Text} */
+    var textNode;
+    /** @type {HTMLLIElement} */
+    var li;
+    /** @type {HTMLSpanElement} */
+    var span;
+    /** @type {HTMLButtonElement} */
+    var button;
 
     textNode = document.createTextNode(text);
     if (textNode.textContent === "") {
@@ -205,7 +198,7 @@ TagManager.prototype.add = function add(text) {
 };
 
 TagManager.prototype.remove = function remove(tagObj, text) {
-    /** @type Text */
+    /** @type {Text} */
     var textNode = document.createTextNode(text);
 
     tagObj.remove();
@@ -218,16 +211,13 @@ TagManager.prototype.remove = function remove(tagObj, text) {
 };
 
 TagManager.prototype.refreshTextarea = function refreshTextarea() {
-    /** @type string[] */
+    /** @type {string[]} */
     var text = [];
-
-    /** @type NodeListOf<Element> */
+    /** @type {Element[]} */
     var tags = this.options.listObj.querySelectorAll(".sr-only");
-
-    /** @type number */
+    /** @type {number} */
     var idxTags = 0;
-
-    /** @type number */
+    /** @type {number} */
     var maxTags = tags.length;
 
     for (; idxTags < maxTags; ++idxTags) {
