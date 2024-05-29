@@ -6,7 +6,7 @@ const dateNow = 1479427200000;
 
 jest.useFakeTimers({now: dateNow});
 
-describe("tag", function(){
+describe("tag", function() {
     beforeEach(function() {
         document.body.innerHTML = ``;
 
@@ -40,51 +40,51 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).not.toBeInstanceOf(Error);
 
-        const inputObj = document.getElementById('form-edit-input-tag');
-        const textareaObj = document.getElementById('form-edit-textarea-tags');
-        const listObj = document.getElementById('form-edit-ul-tags');
+        const inputObj = document.getElementById("form-edit-input-tag");
+        const textareaObj = document.getElementById("form-edit-textarea-tags");
+        const listObj = document.getElementById("form-edit-ul-tags");
 
-        const eventKeypress = new Event('keypress');
+        const eventKeypress = new Event("keypress");
         eventKeypress.key = " ";
 
-        inputObj.value = 'mytag';
+        inputObj.value = "mytag";
         inputObj.dispatchEvent(eventKeypress);
 
         jest.advanceTimersByTime(100);
-        expect(document.body.querySelector('div[aria-live]').textContent).toBe('mytag added');
+        expect(document.body.querySelector("div[aria-live]").textContent).toBe("mytag added");
         jest.advanceTimersByTime(1000);
 
-        let allTags = listObj.querySelectorAll('li.tag__item');
+        let allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("Cube\nmytag");
-        expect(allTags[1].querySelector('button').getAttribute('aria-label')).toBe('Remove mytag from the list');
+        expect(allTags[1].querySelector("button").getAttribute("aria-label")).toBe("Remove mytag from the list");
 
-        allTags[0].querySelector('button').click();
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags[0].querySelector("button").click();
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(1);
         expect(textareaObj.value).toBe("mytag");
 
         jest.advanceTimersByTime(100);
-        expect(document.body.querySelector('div[aria-live]').textContent).toBe('Cube deleted');
+        expect(document.body.querySelector("div[aria-live]").textContent).toBe("Cube deleted");
         jest.advanceTimersByTime(1000);
 
-        inputObj.value = '      ';
+        inputObj.value = "      ";
         inputObj.dispatchEvent(eventKeypress);
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(1);
         expect(textareaObj.value).toBe("mytag");
 
-        inputObj.value = '   abc   ';
+        inputObj.value = "   abc   ";
         inputObj.dispatchEvent(eventKeypress);
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("mytag\nabc");
 
         listObj.click();
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("mytag\nabc");
 
@@ -106,9 +106,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).toBeInstanceOf(TypeError);
-        expect(tag.message).toBe('Invalid attribute data-tag-form-input-id, expect string, get object');
+        expect(tag.message).toBe("Invalid attribute data-tag-form-input-id, expect string, get object");
 
         document.body.innerHTML = `
 <div class="form__element"
@@ -125,9 +125,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag2 = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag2 = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag2).toBeInstanceOf(Error);
-        expect(tag2.message).toBe('DOM element form-edit-input-tag not found');
+        expect(tag2.message).toBe("DOM element form-edit-input-tag not found");
     });
 
     it("should return error on attribute data-tag-form-textarea-id", () => {
@@ -146,9 +146,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).toBeInstanceOf(TypeError);
-        expect(tag.message).toBe('Invalid attribute data-tag-form-textarea-id, expect string, get object');
+        expect(tag.message).toBe("Invalid attribute data-tag-form-textarea-id, expect string, get object");
 
         document.body.innerHTML = `
 <div class="form__element"
@@ -166,9 +166,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag2 = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag2 = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag2).toBeInstanceOf(Error);
-        expect(tag2.message).toBe('DOM element form-edit-textarea-tags not found');
+        expect(tag2.message).toBe("DOM element form-edit-textarea-tags not found");
     });
 
     it("should return error on attribute data-tag-list-id", () => {
@@ -188,9 +188,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).toBeInstanceOf(TypeError);
-        expect(tag.message).toBe('Invalid attribute data-tag-list-id, expect string, get object');
+        expect(tag.message).toBe("Invalid attribute data-tag-list-id, expect string, get object");
 
         document.body.innerHTML = `
 <div class="form__element"
@@ -209,9 +209,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag2 = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag2 = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag2).toBeInstanceOf(Error);
-        expect(tag2.message).toBe('DOM element form-edit-ul-tags not found');
+        expect(tag2.message).toBe("DOM element form-edit-ul-tags not found");
     });
 
     it("should return error on attribute data-tag-new-id", () => {
@@ -232,9 +232,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).toBeInstanceOf(TypeError);
-        expect(tag.message).toBe('Invalid attribute data-tag-new-id, expect string, get object');
+        expect(tag.message).toBe("Invalid attribute data-tag-new-id, expect string, get object");
 
         document.body.innerHTML = `
 <div class="form__element"
@@ -254,9 +254,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag2 = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag2 = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag2).toBeInstanceOf(Error);
-        expect(tag2.message).toBe('DOM element form-edit-ul-tags-li-add-tag not found');
+        expect(tag2.message).toBe("DOM element form-edit-ul-tags-li-add-tag not found");
     });
 
     it("should return error on attribute data-tag-aria-label", () => {
@@ -281,9 +281,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).toBeInstanceOf(Error);
-        expect(tag.message).toBe('Attribute data-tag-aria-label missing "%s"');
+        expect(tag.message).toBe(`Attribute data-tag-aria-label missing "%s"`);
     });
 
     it("should return error on attribute data-tag-srspeak-add", () => {
@@ -308,9 +308,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).toBeInstanceOf(Error);
-        expect(tag.message).toBe('Attribute data-tag-srspeak-add missing "%s"');
+        expect(tag.message).toBe(`Attribute data-tag-srspeak-add missing "%s"`);
     });
 
     it("should return error on attribute data-tag-srspeak-delete", () => {
@@ -335,9 +335,9 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).toBeInstanceOf(Error);
-        expect(tag.message).toBe('Attribute data-tag-srspeak-delete missing "%s"');
+        expect(tag.message).toBe(`Attribute data-tag-srspeak-delete missing "%s"`);
     });
 
     it("should work (minimum options)", () => {
@@ -360,51 +360,51 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).not.toBeInstanceOf(Error);
 
-        const inputObj = document.getElementById('form-edit-input-tag');
-        const textareaObj = document.getElementById('form-edit-textarea-tags');
-        const listObj = document.getElementById('form-edit-ul-tags');
+        const inputObj = document.getElementById("form-edit-input-tag");
+        const textareaObj = document.getElementById("form-edit-textarea-tags");
+        const listObj = document.getElementById("form-edit-ul-tags");
 
-        const eventKeypress = new Event('keypress');
+        const eventKeypress = new Event("keypress");
         eventKeypress.key = ",";
 
-        inputObj.value = 'mytag';
+        inputObj.value = "mytag";
         inputObj.dispatchEvent(eventKeypress);
 
         jest.advanceTimersByTime(100);
-        expect(document.body.querySelector('div[aria-live]').textContent).toBe('mytag added');
+        expect(document.body.querySelector("div[aria-live]").textContent).toBe("mytag added");
         jest.advanceTimersByTime(1000);
 
-        let allTags = listObj.querySelectorAll('li.tag__item');
+        let allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("Cube\nmytag");
-        expect(allTags[1].querySelector('button').getAttribute('aria-label')).toBe('Remove mytag from the list');
+        expect(allTags[1].querySelector("button").getAttribute("aria-label")).toBe("Remove mytag from the list");
 
-        allTags[0].querySelector('button').click();
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags[0].querySelector("button").click();
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(1);
         expect(textareaObj.value).toBe("mytag");
 
         jest.advanceTimersByTime(100);
-        expect(document.body.querySelector('div[aria-live]').textContent).toBe('Cube deleted');
+        expect(document.body.querySelector("div[aria-live]").textContent).toBe("Cube deleted");
         jest.advanceTimersByTime(1000);
 
-        inputObj.value = '      ';
+        inputObj.value = "      ";
         inputObj.dispatchEvent(eventKeypress);
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(1);
         expect(textareaObj.value).toBe("mytag");
 
-        inputObj.value = '   abc   ';
+        inputObj.value = "   abc   ";
         inputObj.dispatchEvent(eventKeypress);
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("mytag\nabc");
 
         listObj.click();
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("mytag\nabc");
 
@@ -436,51 +436,51 @@ describe("tag", function(){
     <textarea aria-hidden="true" aria-label="List of tags" hidden id="form-edit-textarea-tags" name="form-edit-textarea-tags">Cube</textarea>
 </div>`;
 
-        const tag = new Tag(document.getElementById('tag-dom'), window.screenReaderSpeak);
+        const tag = new Tag(document.getElementById("tag-dom"), window.screenReaderSpeak);
         expect(tag).not.toBeInstanceOf(Error);
 
-        const inputObj = document.getElementById('form-edit-input-tag');
-        const textareaObj = document.getElementById('form-edit-textarea-tags');
-        const listObj = document.getElementById('form-edit-ul-tags');
+        const inputObj = document.getElementById("form-edit-input-tag");
+        const textareaObj = document.getElementById("form-edit-textarea-tags");
+        const listObj = document.getElementById("form-edit-ul-tags");
 
-        const eventKeypress = new Event('keypress');
+        const eventKeypress = new Event("keypress");
         eventKeypress.key = "8";
 
-        inputObj.value = 'mytag';
+        inputObj.value = "mytag";
         inputObj.dispatchEvent(eventKeypress);
 
         jest.advanceTimersByTime(100);
-        expect(document.body.querySelector('div[aria-live]').textContent).toBe('Ajout du tag mytag');
+        expect(document.body.querySelector("div[aria-live]").textContent).toBe("Ajout du tag mytag");
         jest.advanceTimersByTime(1000);
 
-        let allTags = listObj.querySelectorAll('li.tag__item');
+        let allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("Cube\nmytag");
-        expect(allTags[1].querySelector('button').getAttribute('aria-label')).toBe('Suppression du tag mytag de la liste');
+        expect(allTags[1].querySelector("button").getAttribute("aria-label")).toBe("Suppression du tag mytag de la liste");
 
-        allTags[0].querySelector('button').click();
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags[0].querySelector("button").click();
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(1);
         expect(textareaObj.value).toBe("mytag");
 
         jest.advanceTimersByTime(100);
-        expect(document.body.querySelector('div[aria-live]').textContent).toBe('Suppression du tag Cube');
+        expect(document.body.querySelector("div[aria-live]").textContent).toBe("Suppression du tag Cube");
         jest.advanceTimersByTime(1000);
 
-        inputObj.value = '      ';
+        inputObj.value = "      ";
         inputObj.dispatchEvent(eventKeypress);
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(1);
         expect(textareaObj.value).toBe("mytag");
 
-        inputObj.value = '   abc   ';
+        inputObj.value = "   abc   ";
         inputObj.dispatchEvent(eventKeypress);
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("mytag\nabc");
 
         listObj.click();
-        allTags = listObj.querySelectorAll('li.tag__item');
+        allTags = listObj.querySelectorAll("li.tag__item");
         expect(allTags.length).toBe(2);
         expect(textareaObj.value).toBe("mytag\nabc");
 
