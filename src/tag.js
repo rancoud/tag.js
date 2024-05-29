@@ -41,18 +41,18 @@ function Tag(rootDom, screenReaderSpeakFunction) {
     var attributeValue;
     /** @type {Options} */
     var options = {
-        inputObj: null,
-        textareaObj: null,
-        listObj: null,
-        newObj: null,
-        ariaLabel: "",
-        srSpeakAdd: "",
+        inputObj     : null,
+        textareaObj  : null,
+        listObj      : null,
+        newObj       : null,
+        ariaLabel    : "",
+        srSpeakAdd   : "",
         srSpeakDelete: "",
-        itemClass: "",
-        liClass: "",
-        keys: null,
-        events: null,
-        speakFn: null
+        itemClass    : "",
+        liClass      : "",
+        keys         : null,
+        events       : null,
+        speakFn      : null
     };
     var mandatoryHTMLElement = [
         {name: "data-tag-form-input-id", optionName: "inputObj"},
@@ -118,7 +118,7 @@ function TagManager(rootDom, options) {
 
     this.options.events = {
         keypress: this.tryToAddTagOnKeypress.bind(this),
-        click: this.tryToDeleteTag.bind(this)
+        click   : this.tryToDeleteTag.bind(this)
     };
 
     this.options.inputObj.addEventListener("keypress", this.options.events.keypress);
