@@ -1,7 +1,6 @@
 # tag.js
 
 [![Test workflow](https://img.shields.io/github/actions/workflow/status/rancoud/tag.js/test.yml?branch=main)](https://github.com/rancoud/tag.js/actions/workflows/test.yml)
-[![Codecov](https://img.shields.io/codecov/c/github/rancoud/tag.js?logo=codecov)](https://codecov.io/gh/rancoud/tag.js)
 
 JS Tag Manager take care of your tags by validating inputs, use feedbacks and add accessibility.  
 Based on the work of [Orange a11y guidelines: Creating accessible "tags" 1/2](https://a11y-guidelines.orange.com/en/articles/tags/) and [Orange a11y guidelines: Creating accessible "tags" 2/2](https://a11y-guidelines.orange.com/en/articles/tags/2/).
